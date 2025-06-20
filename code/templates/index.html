@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pneumonia Detection</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e0f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+            min-height: 400px; /* Ensure a minimum height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #00796b;
+        }
+        .upload-form {
+            margin-bottom: 20px;
+        }
+        .upload-form input[type="file"] {
+            display: block;
+            margin: 0 auto 20px auto;
+        }
+        .upload-form button {
+            background-color: #00796b;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .upload-form button:hover {
+            background-color: #004d40;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #00796b;
+        }
+        .image-preview {
+            margin-top: 20px;
+            max-width: 100%;
+            max-height: 300px; /* Fix the image size */
+            height: auto;
+            border-radius: 10px;
+            border: 2px solid #00796b;
+        }
+        .no-file {
+            margin-top: 20px;
+            font-size: 1em;
+            color: #888;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script>
+        function handleFileInput() {
+            const fileInput = document.querySelector('input[type="file"]');
+            const submitButton = document.querySelector('button[type="submit"]');
+            const noFileText = document.querySelector('.no-file');
+
+            if (fileInput.files.length > 0) {
+                submitButton.classList.remove('hidden');
+                noFileText.classList.add('hidden');
+            } else {
+                submitButton.classList.add('hidden');
+                noFileText.classList.remove('hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Pneumonia Detection</h1>
+        <form class="upload-form" action="/predict" method="post" enctype="multipart/form-data" oninput="handleFileInput()">
+            <input type="file" name="file" accept=".png, .jpg, .jpeg" required>
+            <button type="submit" class="hidden">Upload and Predict</button>
+        </form>
+        <div class="no-file">Please choose a file to upload and predict.</div>
+        
+        {% if result %}
+            <div class="result">
+                Prediction: {{ result }}
+            </div>
+            <img class="image-preview" src="{{ image_path }}" alt="Uploaded Image">
+        {% endif %}
+    </div>
+</body>
+</html>
