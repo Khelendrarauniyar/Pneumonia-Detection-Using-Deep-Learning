@@ -12,7 +12,7 @@ A Flask-based web application for automated pneumonia detection from chest X-ray
 
 ## Demo
 
-![Demo Screenshot](static/demo/demo.png) 
+![Demo Screenshot](code/static/demo/demo.png) 
 
 ## Getting Started
 
